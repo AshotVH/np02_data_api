@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 import requests
 import os
@@ -14,9 +14,11 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 
 
-@app.route('/response')
-def response():
-    response = requests.get("http://188.185.78.106:5000/latest/cryostat")
+@app.route('/np02cachedvals', methods=['GET'])
+def np02cachedvals():
+    args = request.args
+    elemName = args.get('elemname')
+    response = requests.get(f"http://188.185.78.106:5000/latest/{elemName}")
     return response.json()
     
 
