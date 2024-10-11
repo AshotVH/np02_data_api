@@ -23,9 +23,8 @@ def np02cachedvals():
 @app.route('/np02histogram/<elem_id>/<start_date>/<end_date>')
 def np02histogram(start_date, end_date, elem_id):
     response = requests.get(f"{API_ADDRESS}/range/{start_date}/{end_date}/{elem_id}")
-    addr = f"{API_ADDRESS}/range/{start_date}/{end_date}/{elem_id}"
-    # return response.json()
-    return addr
+    return response.json()
+
 
 
 if __name__ == '__main__':
