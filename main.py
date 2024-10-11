@@ -11,14 +11,14 @@ allowed_origins = [
 
 
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
-
+API_ADDRESS = os.environ.get("API_ADDRESS")
 
 
 @app.route('/np02cachedvals', methods=['GET'])
 def np02cachedvals():
     args = request.args
     elemName = args.get('elemname')
-    response = requests.get(f"http://188.185.78.106:5000/latest/{elemName}")
+    response = requests.get(f"{API_ADDRESS}/latest/{elemName}")
     return response.json()
     
 
