@@ -4,7 +4,15 @@ import requests
 import os
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": "https://np02test-slow-control.app.cern.ch"}})
+allowed_origins = [
+    "https://np02test-slow-control.app.cern.ch",
+    "https://np02-slow-control.app.cern.ch/"
+]
+
+
+CORS(app, resources={r"/*": {"origins": allowed_origins}})
+
+
 
 @app.route('/response')
 def response():
