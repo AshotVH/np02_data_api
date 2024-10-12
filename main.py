@@ -10,7 +10,7 @@ allowed_origins = [
 ]
 
 
-CORS(app, resources={r"/*": {"origins": allowed_origins}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 API_ADDRESS = os.environ.get("API_ADDRESS")
 
 
