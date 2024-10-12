@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 allowed_origins = [
     "https://np02test-slow-control.app.cern.ch",
-    "https://np02-slow-control.app.cern.ch/"
+    "https://np02-slow-control.app.cern.ch"
 ]
 
 
