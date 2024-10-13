@@ -24,6 +24,10 @@ def np02cachedvals():
 def np02histogram(start_date, end_date, elem_id):
     response = requests.get(f"{API_ADDRESS}/range/{start_date}/{end_date}/{elem_id}")
     return response.json()
+@app.route('/sensorname/<elem_id>/')
+def sensorname(elem_id):
+    response = request.get(f"{API_ADDRESS}/sensor-name/{elem_id}")
+    return response.json()
 
 
 
