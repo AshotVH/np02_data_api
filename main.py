@@ -22,10 +22,13 @@ def np02cachedvals():
     elemName = args.get('elemname')
     try:
         response = requests.get(f"{API_ADDRESS}/latest/{elemName}", timeout=30)
+        print(f">>> INTERNAL RESPONSE | status={response.status_code} | body={response.text[:300]}", flush=True)
         return response.json()
     except requests.exceptions.Timeout:
+        print(f">>> TIMEOUT for elemName={elemName}", flush=True)
         return {"error": "Internal API timeout"}, 504
     except Exception as e:
+        print(f">>> EXCEPTION | {type(e).__name__}: {str(e)}", flush=True)
         return {"error": f"Failed to fetch data: {str(e)}"}, 500
     
 
