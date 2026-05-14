@@ -20,24 +20,44 @@ API_ADDRESS = os.environ.get("API_ADDRESS")
 def np02cachedvals():
     args = request.args
     elemName = args.get('elemname')
-    response = requests.get(f"{API_ADDRESS}/latest/{elemName}")
-    return response.json()
+    try:
+        response = requests.get(f"{API_ADDRESS}/latest/{elemName}", timeout=30)
+        return response.json()
+    except requests.exceptions.Timeout:
+        return {"error": "Internal API timeout"}, 504
+    except Exception as e:
+        return {"error": f"Failed to fetch data: {str(e)}"}, 500
+    
 
 @app.route('/np02histogram/<elem_id>/<start_date>/<end_date>')
 def np02histogram(start_date, end_date, elem_id):
-    response = requests.get(f"{API_ADDRESS}/range/{start_date}/{end_date}/{elem_id}")
-    return response.json()
+    try:
+        response = requests.get(f"{API_ADDRESS}/range/{start_date}/{end_date}/{elem_id}", timeout=30)
+        return response.json()
+    except requests.exceptions.Timeout:
+        return {"error": "Internal API timeout"}, 504
+    except Exception as e:
+        return {"error": f"Failed to fetch data: {str(e)}"}, 500
 
 @app.route('/np02histogram_average/<elem_id>/<start_date>/<end_date>')
 def np02histogram_average(start_date, end_date, elem_id):
-    response  = requests.get(f"{API_ADDRESS}/average/{start_date}/{end_date}/{elem_id}")
-    return response.json()
+    try:
+        response  = requests.get(f"{API_ADDRESS}/average/{start_date}/{end_date}/{elem_id}", timeout=30)
+        return response.json()
+    except requests.exceptions.Timeout:
+        return {"error": "Internal API timeout"}, 504
+    except Exception as e:
+        return {"error": f"Failed to fetch data: {str(e)}"}, 500
 
 @app.route('/sensorname/<elem_id>/')
 def sensorname(elem_id):
-    response = requests.get(f"{API_ADDRESS}/sensor-name/{elem_id}")
-    return response.json()
-
+    try:
+        response = requests.get(f"{API_ADDRESS}/sensor-name/{elem_id}", timeout=30)
+        return response.json()
+    except requests.exceptions.Timeout:
+        return {"error": "Internal API timeout"}, 504
+    except Exception as e:
+        return {"error": f"Failed to fetch data: {str(e)}"}, 500
 
 
 if __name__ == '__main__':
